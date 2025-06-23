@@ -1,0 +1,16 @@
+C:\Proyectos\Vacante\OlSoftware\Tecnica\GamerRankingApp.Tests\bin\Debug\net48\NUnit3.TestAdapter.dll
+C:\Proyectos\Vacante\OlSoftware\Tecnica\GamerRankingApp.Tests\bin\Debug\net48\NUnit3.TestAdapter.pdb
+C:\Proyectos\Vacante\OlSoftware\Tecnica\GamerRankingApp.Tests\bin\Debug\net48\nunit.engine.dll
+C:\Proyectos\Vacante\OlSoftware\Tecnica\GamerRankingApp.Tests\bin\Debug\net48\nunit.engine.api.dll
+C:\Proyectos\Vacante\OlSoftware\Tecnica\GamerRankingApp.Tests\bin\Debug\net48\GamerRankingApp.Tests.dll
+C:\Proyectos\Vacante\OlSoftware\Tecnica\GamerRankingApp.Tests\bin\Debug\net48\GamerRankingApp.Tests.pdb
+C:\Proyectos\Vacante\OlSoftware\Tecnica\GamerRankingApp.Tests\bin\Debug\net48\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+C:\Proyectos\Vacante\OlSoftware\Tecnica\GamerRankingApp.Tests\bin\Debug\net48\nunit.framework.dll
+C:\Proyectos\Vacante\OlSoftware\Tecnica\GamerRankingApp.Tests\obj\Debug\net48\GamerRankingApp.Tests.csproj.AssemblyReference.cache
+C:\Proyectos\Vacante\OlSoftware\Tecnica\GamerRankingApp.Tests\obj\Debug\net48\GamerRankingApp.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Proyectos\Vacante\OlSoftware\Tecnica\GamerRankingApp.Tests\obj\Debug\net48\GamerRankingApp.Tests.AssemblyInfoInputs.cache
+C:\Proyectos\Vacante\OlSoftware\Tecnica\GamerRankingApp.Tests\obj\Debug\net48\GamerRankingApp.Tests.AssemblyInfo.cs
+C:\Proyectos\Vacante\OlSoftware\Tecnica\GamerRankingApp.Tests\obj\Debug\net48\GamerRankingApp.Tests.csproj.CoreCompileInputs.cache
+C:\Proyectos\Vacante\OlSoftware\Tecnica\GamerRankingApp.Tests\obj\Debug\net48\GamerRan.5FDEB5C5.Up2Date
+C:\Proyectos\Vacante\OlSoftware\Tecnica\GamerRankingApp.Tests\obj\Debug\net48\GamerRankingApp.Tests.dll
+C:\Proyectos\Vacante\OlSoftware\Tecnica\GamerRankingApp.Tests\obj\Debug\net48\GamerRankingApp.Tests.pdb

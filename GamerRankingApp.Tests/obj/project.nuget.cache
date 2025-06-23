@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "44tz4yc4EbA=",
+  "success": true,
+  "projectFilePath": "C:\\Proyectos\\Vacante\\OlSoftware\\Tecnica\\GamerRankingApp.Tests\\GamerRankingApp.Tests.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Jose\\.nuget\\packages\\microsoft.codecoverage\\16.5.0\\microsoft.codecoverage.16.5.0.nupkg.sha512",
+    "C:\\Users\\Jose\\.nuget\\packages\\microsoft.net.test.sdk\\16.5.0\\microsoft.net.test.sdk.16.5.0.nupkg.sha512",
+    "C:\\Users\\Jose\\.nuget\\packages\\nunit\\3.12.0\\nunit.3.12.0.nupkg.sha512",
+    "C:\\Users\\Jose\\.nuget\\packages\\nunit3testadapter\\3.16.1\\nunit3testadapter.3.16.1.nupkg.sha512"
+  ],
+  "logs": []
+}
