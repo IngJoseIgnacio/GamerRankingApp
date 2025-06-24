@@ -1,12 +1,13 @@
-﻿using GamerRankingApp.Models;
+﻿using AjaxControlToolkit; // Para ModalPopupExtender
+using GamerRankingApp.Models;
+using GamerRankingApp.Services;
 using Microsoft.AspNet.Identity;
 using System;
+using System.Data.Entity; // Para Include
 using System.Linq;
+using System.Text; // Para CSV
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Text; // Para CSV
-using System.Data.Entity; // Para Include
-using AjaxControlToolkit; // Para ModalPopupExtender
 
 namespace GamerRankingApp.Videojuegos
 {
@@ -149,22 +150,22 @@ namespace GamerRankingApp.Videojuegos
 
         protected void btnGenerateDownloadRanking_Click(object sender, EventArgs e)
         {
-            if (!User.IsInRole("Administrator")) // Re-validación de seguridad en servidor
+            if (!User.IsInRole("Administrator"))
             {
                 lblRankingMessage.Text = "No tiene permisos para generar el ranking.";
                 lblRankingMessage.CssClass = "text-danger";
-                RankingModalPopupExtender.Show(); // Mantener modal abierto
+                RankingModalPopupExtender.Show();
                 return;
             }
 
-            int topDesired = 0; // Valor por defecto: todos los registros (Top 20 según el documento)
+            int topDesired = 0;
             if (!string.IsNullOrWhiteSpace(txtTopDesired.Text))
             {
                 if (!int.TryParse(txtTopDesired.Text, out topDesired) || topDesired < 0)
                 {
                     lblRankingMessage.Text = "El valor ingresado para el Top deseado no es válido. Debe ser un entero positivo o 0.";
                     lblRankingMessage.CssClass = "text-danger";
-                    RankingModalPopupExtender.Show(); // Mantener modal abierto
+                    RankingModalPopupExtender.Show();
                     return;
                 }
             }
@@ -173,28 +174,8 @@ namespace GamerRankingApp.Videojuegos
             {
                 using (var db = new ApplicationDbContext())
                 {
-                    var rankingData = db.Calificaciones
-                        .GroupBy(c => c.VideojuegoId)
-                        .Select(g => new
-                        {
-                            VideojuegoId = g.Key,
-                            AverageScore = g.Average(c => c.Puntuacion)
-                        })
-                        .Join(db.Videojuegos, // Unir con Videojuegos para obtener detalles
-                              ranking => ranking.VideojuegoId,
-                              videojuego => videojuego.Id,
-                              (ranking, videojuego) => new
-                              {
-                                  videojuego.Nombre,
-                                  videojuego.Compania,
-                                  AverageScore = ranking.AverageScore
-                              })
-                        .OrderByDescending(r => r.AverageScore)
-                        .ToList(); // Primero obtén todos los datos relevantes para luego aplicar el TOP en memoria si es 0
-
-                    // Si topDesired es 0, significa que se desean todos los registros.
-                    // Si topDesired es > 0, se toma el número de registros especificado.
-                    var finalRankingData = (topDesired == 0) ? rankingData : rankingData.Take(topDesired).ToList();
+                    var rankingService = new RankingService(db); // Instanciar el servicio
+                    var finalRankingData = rankingService.GenerateRanking(topDesired); // Usar el servicio
 
                     if (!finalRankingData.Any())
                     {
@@ -205,38 +186,28 @@ namespace GamerRankingApp.Videojuegos
                     }
 
                     StringBuilder csvContent = new StringBuilder();
-                    csvContent.AppendLine("Nombre|Compañía|Puntaje|Clasificación"); // Encabezado CSV
+                    csvContent.AppendLine("Nombre|Compañía|Puntaje|Clasificación");
 
-                    int position = 0;
-                    double halfOfCalculatedTop = (double)finalRankingData.Count / 2.0;
-
-                    foreach (var item in finalRankingData)
+                    foreach (var entry in finalRankingData) // Usar la clase RankingEntry
                     {
-                        position++;
-                        string classification = (position <= Math.Ceiling(halfOfCalculatedTop)) ? "GOTY" : "AAA";
-                        csvContent.AppendLine($"{item.Nombre}|{item.Compania}|{item.AverageScore:F2}|{classification}");
+                        csvContent.AppendLine($"{entry.Nombre}|{entry.Compania}|{entry.Puntaje:F2}|{entry.Clasificacion}");
                     }
 
                     Response.Clear();
                     Response.Buffer = true;
                     Response.ContentType = "text/csv";
                     Response.AddHeader("Content-Disposition", "attachment;filename=VideoGameRanking.csv");
-                    Response.Charset = "UTF-8"; // Asegurar codificación correcta
+                    Response.Charset = "UTF-8";
                     Response.Output.Write(csvContent.ToString());
                     Response.Flush();
-                    Response.End(); // Finaliza la respuesta, evita que se procese más la página
-
-                    // Este mensaje no se verá si Response.End() es llamado.
-                    // Solo para propósitos de depuración o si el archivo no se descarga.
-                    // lblRankingMessage.Text = "Ranking generado y descargado exitosamente.";
-                    // lblRankingMessage.CssClass = "text-success";
+                    Response.End();
                 }
             }
             catch (Exception ex)
             {
                 lblRankingMessage.Text = $"Error al generar el ranking: {ex.Message}";
                 lblRankingMessage.CssClass = "text-danger";
-                RankingModalPopupExtender.Show(); // Mantener modal abierto
+                RankingModalPopupExtender.Show();
             }
         }
 
