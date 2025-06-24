@@ -1,6 +1,14 @@
-    -- SqlScripts/1_GenerateRandomCalificaciones.sql
+	IF NOT EXISTS ( SELECT name FROM sys.databases WHERE name = N'GamingRankingDB')
+	BEGIN
+	    EXEC('CREATE DATABASE GamingRankingDB');
+	    PRINT 'Base de datos creada exitosamente.';
+	END
+	ELSE
+	BEGIN
+	    PRINT 'La base de datos ya existe.';
+	END
 
-    -- Eliminar el procedimiento si ya existe
+       -- Eliminar el procedimiento si ya existe
     IF OBJECT_ID('dbo.GenerateRandomCalificaciones', 'P') IS NOT NULL
         DROP PROCEDURE dbo.GenerateRandomCalificaciones;
     GO
